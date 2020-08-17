@@ -1,6 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>iOS唤起百度、高德、腾讯地图进行导航路线规划</title>
+    <url>/posts/28416/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>做的几个APP项目中都用到第三方地图进行定位与导航的功能，之前只是简单的把<code>百度</code>，<code>高德</code>，<code>腾讯</code>等sdk继承到项目中使用，但仅仅是使用导航功能，没必要集成，过于臃肿。下图是url方式能实现的功能，这里只简单的使用<code>导航</code>,有其他需求的需要自己去实现，文章内有提供地址。</p>
+</blockquote>
+<p><img src="%E5%9B%BE%E7%89%8720200817160828.png" alt="图片20200817160828"></p>
+<h3 id="协议格式"><a href="#协议格式" class="headerlink" title="协议格式"></a>协议格式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">百度地图注册 scheme:baidumap。</span><br><span class="line">高德地图注册 scheme:iosamap。</span><br><span class="line">腾讯地图注册 scheme:qqmap。</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>由于iOS的限制，协议头需要在info.plist文件中添加白名单<br>找到您的Info.plist文件</p>
+</li>
+<li><p>在文件中添加key：LSApplicationQueriesSchemes，类型是Array，如果曾经添加过，无需再次添加。</p>
+</li>
+<li><p>Array中添加一个item，类型为String。</p>
+<p><img src="%E5%9B%BE%E7%89%8720200817180526.png" alt="图片20200817180526"></p>
+</li>
+</ol>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;key&gt;LSApplicationQueriesSchemes&lt;/key&gt;</span><br><span class="line">&lt;array&gt;</span><br><span class="line">  &lt;string&gt;baidumap&lt;/string&gt;</span><br><span class="line">  &lt;string&gt;iosamap&lt;/string&gt;</span><br><span class="line">  &lt;string&gt;qqmap&lt;/string&gt;</span><br><span class="line">&lt;/array&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="百度地图"><a href="#百度地图" class="headerlink" title="百度地图"></a>百度地图</h3><p>百度地图更多详细功能的可以点击<a href="https://lbsyun.baidu.com/index.php?title=uri/api/ios">地址</a>查看<br>参数说明：【去除了可选参数】</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名称</strong></th>
+<th><strong>参数说明</strong></th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>origin</td>
+<td>起点名称或经纬度，或者可同时提供名称和经纬度，此时经纬度优先级高，将作为导航依据，名称只负责展示。</td>
+<td>1、名称：天安门<br>2、经纬度：39.98871&lt;纬度&gt;，116.43234&lt;经度&gt;。<br>3、名称和经纬度：name:天安门|latlng:39.98871,116.43234</td>
+</tr>
+<tr>
+<td>destination</td>
+<td>终点名称或经纬度，或者可同时提供名称和经纬度，此时经纬度优先级高，将作为导航依据，名称只负责展示。</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>导航模式，固定为transit、driving、navigation、walking，riding分别表示公交、驾车、导航、步行和骑行</td>
+<td></td>
+</tr>
+<tr>
+<td>coord_type</td>
+<td>坐标类型，必选参数。<br>示例：<br>coord_type= bd09ll<br>允许的值为：<br>bd09ll（百度经纬度坐标）<br>bd09mc（百度墨卡托坐标）<br>gcj02（经国测局加密的坐标）<br>wgs84（gps获取的原始坐标）</td>
+<td>如开发者不传递正确的坐标类型参数，会导致地点坐标位置偏移。</td>
+</tr>
+<tr>
+<td>src</td>
+<td>表示来源，用于统计</td>
+<td>必选参数，格式为：ios.companyName.appName 不传此参数，不保证服务</td>
+</tr>
+</tbody></table>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">// 只填写必传参数，url地址整理后如下：</span><br><span class="line">baidumap://map/direction?origin=中关村&amp;destination=五道口&amp;mode=driving&amp;src=ios.baidu.openAPIdemo</span><br></pre></td></tr></table></figure>
+
+<h3 id="高德地图"><a href="#高德地图" class="headerlink" title="高德地图"></a>高德地图</h3><p>高德地图更多详细功能的可以点击<a href="https://lbs.amap.com/api/amap-mobile/guide/ios/ios-uri-information">地址</a>查看</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>是否必填</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Path</td>
+<td>服务类型</td>
+<td>是</td>
+</tr>
+<tr>
+<td>sourceApplication</td>
+<td>第三方调用应用名称。如applicationName</td>
+<td>是</td>
+</tr>
+<tr>
+<td>slat</td>
+<td>起点纬度，经纬度参数同时存在或同时为空，视为有效参数</td>
+<td>否</td>
+</tr>
+<tr>
+<td>slon</td>
+<td>起点经度，经纬度参数同时存在或同时为空，视为有效参数</td>
+<td>否</td>
+</tr>
+<tr>
+<td>sname</td>
+<td>起点名称（可为空）</td>
+<td>否</td>
+</tr>
+<tr>
+<td>dlat</td>
+<td>终点纬度，经纬度参数同时存在或同时为空，视为有效参数</td>
+<td>否</td>
+</tr>
+<tr>
+<td>dlon</td>
+<td>终点经度，经纬度参数同时存在或同时为空，视为有效参数</td>
+<td>否</td>
+</tr>
+<tr>
+<td>dname</td>
+<td>终点名称（可为空）</td>
+<td>否</td>
+</tr>
+<tr>
+<td>t</td>
+<td>t = 0 驾车；t = 1 公交；t = 2 步行；t = 3 骑行（骑行仅在V788以上版本支持）；</td>
+<td>是</td>
+</tr>
+</tbody></table>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">// 只填写必传参数，url地址整理后如下：</span><br><span class="line">iosamap://path?sourceApplication=applicationName&amp;sname=中关村&amp;dname=五道口&amp;t=0</span><br></pre></td></tr></table></figure>
+
+<h3 id="腾讯地图"><a href="#腾讯地图" class="headerlink" title="腾讯地图"></a>腾讯地图</h3><p>腾讯地图更多详细功能的可以点击<a href="https://lbs.qq.com/webApi/uriV1/uriGuide/uriMobileGuide">地址</a>查看</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>必填</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>是</td>
+<td>路线规划方式参数：<br>公交：bus<br>驾车：drive<br>步行：walk（仅适用移动端）</td>
+<td>type=bus<br>type=drive<br>type=walk</td>
+</tr>
+<tr>
+<td>from</td>
+<td>二选一</td>
+<td>起点名称</td>
+<td>from=奥林匹克森林公园</td>
+</tr>
+<tr>
+<td>fromcoord</td>
+<td>二选一</td>
+<td>起点坐标<br>移动端如果起点名称和起点坐标均未传递，则使用当前定位位置作为起点</td>
+<td>fromcoord=39.907380,116.388501</td>
+</tr>
+<tr>
+<td>to</td>
+<td>是</td>
+<td>终点名称</td>
+<td>to=奥林匹克森林公园</td>
+</tr>
+<tr>
+<td>tocoord</td>
+<td>否</td>
+<td>终点坐标</td>
+<td>tocoord=40.010024,116.392239</td>
+</tr>
+<tr>
+<td>referer</td>
+<td>是</td>
+<td>调用来源，一般为您的应用名称，为了保障对您的服务，请务必填写！</td>
+<td>referer=您的应用名</td>
+</tr>
+</tbody></table>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">// 只填写必传参数，url地址整理后如下：</span><br><span class="line">qqmap://map/routeplan?type=drive&amp;from=中关村&amp;to=五道口&amp;referer=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+  </entry>
+  <entry>
     <title>iOS常用info.plist的权限设置</title>
     <url>/posts/41756/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>

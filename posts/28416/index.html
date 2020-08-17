@@ -20,19 +20,22 @@
     var CONFIG = {"hostname":"blog.24do.xyz","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="前言 不论开发什么app，都需要设置权限，少到相机拍摄和使用照片库，多到麦克风、定位、通讯薄等等…  如果不是要求很严格，可以直接把下面的权限复制粘贴到info.plist里  这些是整理常用的部分权限(项目中用到其他权限再继续追加) 相机权限： Privacy - Camera Usage Description 是否允许此App使用你的相机？ 相册权限： Privacy - Photo Lib">
+  <meta name="description" content="前言 做的几个APP项目中都用到第三方地图进行定位与导航的功能，之前只是简单的把百度，高德，腾讯等sdk继承到项目中使用，但仅仅是使用导航功能，没必要集成，过于臃肿。下图是url方式能实现的功能，这里只简单的使用导航,有其他需求的需要自己去实现，文章内有提供地址。    协议格式 1 2 3   百度地图注册 scheme:baidumap。 高德地图注册 scheme:iosamap。 腾讯地图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS常用info.plist的权限设置">
-<meta property="og:url" content="http://blog.24do.xyz/posts/41756/index.html">
+<meta property="og:title" content="iOS唤起百度、高德、腾讯地图进行导航路线规划">
+<meta property="og:url" content="http://blog.24do.xyz/posts/28416/index.html">
 <meta property="og:site_name" content="西柚">
-<meta property="og:description" content="前言 不论开发什么app，都需要设置权限，少到相机拍摄和使用照片库，多到麦克风、定位、通讯薄等等…  如果不是要求很严格，可以直接把下面的权限复制粘贴到info.plist里  这些是整理常用的部分权限(项目中用到其他权限再继续追加) 相机权限： Privacy - Camera Usage Description 是否允许此App使用你的相机？ 相册权限： Privacy - Photo Lib">
+<meta property="og:description" content="前言 做的几个APP项目中都用到第三方地图进行定位与导航的功能，之前只是简单的把百度，高德，腾讯等sdk继承到项目中使用，但仅仅是使用导航功能，没必要集成，过于臃肿。下图是url方式能实现的功能，这里只简单的使用导航,有其他需求的需要自己去实现，文章内有提供地址。    协议格式 1 2 3   百度地图注册 scheme:baidumap。 高德地图注册 scheme:iosamap。 腾讯地图">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-08-16T01:43:30.000Z">
-<meta property="article:modified_time" content="2020-08-17T02:25:28.147Z">
+<meta property="og:image" content="http://blog.24do.xyz/posts/28416/%E5%9B%BE%E7%89%8720200817160828.png">
+<meta property="og:image" content="http://blog.24do.xyz/posts/28416/%E5%9B%BE%E7%89%8720200817180526.png">
+<meta property="article:published_time" content="2020-08-17T07:35:26.000Z">
+<meta property="article:modified_time" content="2020-08-17T10:19:04.081Z">
 <meta property="article:author" content="Mr.chen">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.24do.xyz/posts/28416/%E5%9B%BE%E7%89%8720200817160828.png">
 
-<link rel="canonical" href="http://blog.24do.xyz/posts/41756/">
+<link rel="canonical" href="http://blog.24do.xyz/posts/28416/">
 
 
 <script id="page-configurations">
@@ -45,7 +48,7 @@
   };
 </script>
 
-  <title>iOS常用info.plist的权限设置 | 西柚</title>
+  <title>iOS唤起百度、高德、腾讯地图进行导航路线规划 | 西柚</title>
   
 
 
@@ -174,7 +177,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.24do.xyz/posts/41756/">
+    <link itemprop="mainEntityOfPage" href="http://blog.24do.xyz/posts/28416/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -187,7 +190,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          iOS常用info.plist的权限设置
+          iOS唤起百度、高德、腾讯地图进行导航路线规划
         </h1>
 
         <div class="post-meta">
@@ -196,16 +199,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-08-16 09:43:30" itemprop="dateCreated datePublished" datetime="2020-08-16T09:43:30+08:00">2020-08-16</time>
+              <time title="创建时间：2020-08-17 15:35:26 / 修改时间：18:19:04" itemprop="dateCreated datePublished" datetime="2020-08-17T15:35:26+08:00">2020-08-17</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-17 10:25:28" itemprop="dateModified" datetime="2020-08-17T10:25:28+08:00">2020-08-17</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -228,17 +225,164 @@
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>不论开发什么app，都需要设置权限，少到相机拍摄和使用照片库，多到麦克风、定位、通讯薄等等…</p>
-<p>如果不是要求很严格，可以直接把下面的权限复制粘贴到info.plist里</p>
+<p>做的几个APP项目中都用到第三方地图进行定位与导航的功能，之前只是简单的把<code>百度</code>，<code>高德</code>，<code>腾讯</code>等sdk继承到项目中使用，但仅仅是使用导航功能，没必要集成，过于臃肿。下图是url方式能实现的功能，这里只简单的使用<code>导航</code>,有其他需求的需要自己去实现，文章内有提供地址。</p>
 </blockquote>
-<h3 id="这些是整理常用的部分权限-项目中用到其他权限再继续追加"><a href="#这些是整理常用的部分权限-项目中用到其他权限再继续追加" class="headerlink" title="这些是整理常用的部分权限(项目中用到其他权限再继续追加)"></a>这些是整理常用的部分权限(项目中用到其他权限再继续追加)</h3><p>相机权限： Privacy - Camera Usage Description 是否允许此App使用你的相机？<br>相册权限： Privacy - Photo Library Usage Description 是否允许此App使用你的相册？<br>定位权限：Privacy - Location When In Use Usage Description 是否允许此App使用你的定位？<br>定位权限: Privacy - Location Always Usage Description 是否允许此App使用你的定位？<br>蓝牙权限：Privacy - Bluetooth Peripheral Usage Description 是否允许此App使用你的蓝牙？<br>麦克风权限：Privacy - Microphone Usage Description 是否允许此App使用你的麦克风？<br>通讯录权限： Privacy - Contacts Usage Description 是否允许此App使用你的通讯录？<br>日历权限：Privacy - Calendars Usage Description 是否允许此App使用你的日历？</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;NSCameraUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的相机？&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSLocationWhenInUseUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的定位?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的麦克风?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的相册?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSContactsUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的通讯录?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSBluetoothPeripheralUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的蓝牙?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSCalendarsUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的日历?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSLocationAlwaysUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的定位?&lt;/string&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="%E5%9B%BE%E7%89%8720200817160828.png" alt="图片20200817160828"></p>
+<h3 id="协议格式"><a href="#协议格式" class="headerlink" title="协议格式"></a>协议格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">百度地图注册 scheme:baidumap。</span><br><span class="line">高德地图注册 scheme:iosamap。</span><br><span class="line">腾讯地图注册 scheme:qqmap。</span><br></pre></td></tr></table></figure>
 
-<h3 id="app直接使用HTTP进行请求，需要在Info-plist新增一段用于控制ATS的配置："><a href="#app直接使用HTTP进行请求，需要在Info-plist新增一段用于控制ATS的配置：" class="headerlink" title="app直接使用HTTP进行请求，需要在Info.plist新增一段用于控制ATS的配置："></a>app直接使用HTTP进行请求，需要在Info.plist新增一段用于控制ATS的配置：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">        &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;</span><br><span class="line">        &lt;<span class="literal">true</span>/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>由于iOS的限制，协议头需要在info.plist文件中添加白名单<br>找到您的Info.plist文件</p>
+</li>
+<li><p>在文件中添加key：LSApplicationQueriesSchemes，类型是Array，如果曾经添加过，无需再次添加。</p>
+</li>
+<li><p>Array中添加一个item，类型为String。</p>
+<p><img src="%E5%9B%BE%E7%89%8720200817180526.png" alt="图片20200817180526"></p>
+</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;LSApplicationQueriesSchemes&lt;/key&gt;</span><br><span class="line">&lt;array&gt;</span><br><span class="line">  &lt;string&gt;baidumap&lt;/string&gt;</span><br><span class="line">  &lt;string&gt;iosamap&lt;/string&gt;</span><br><span class="line">  &lt;string&gt;qqmap&lt;/string&gt;</span><br><span class="line">&lt;/array&gt;</span><br></pre></td></tr></table></figure>
 
+<h3 id="百度地图"><a href="#百度地图" class="headerlink" title="百度地图"></a>百度地图</h3><p>百度地图更多详细功能的可以点击<a target="_blank" rel="noopener" href="https://lbsyun.baidu.com/index.php?title=uri/api/ios">地址</a>查看<br>参数说明：【去除了可选参数】</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名称</strong></th>
+<th><strong>参数说明</strong></th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>origin</td>
+<td>起点名称或经纬度，或者可同时提供名称和经纬度，此时经纬度优先级高，将作为导航依据，名称只负责展示。</td>
+<td>1、名称：天安门<br>2、经纬度：39.98871&lt;纬度&gt;，116.43234&lt;经度&gt;。<br>3、名称和经纬度：name:天安门|latlng:39.98871,116.43234</td>
+</tr>
+<tr>
+<td>destination</td>
+<td>终点名称或经纬度，或者可同时提供名称和经纬度，此时经纬度优先级高，将作为导航依据，名称只负责展示。</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>导航模式，固定为transit、driving、navigation、walking，riding分别表示公交、驾车、导航、步行和骑行</td>
+<td></td>
+</tr>
+<tr>
+<td>coord_type</td>
+<td>坐标类型，必选参数。<br>示例：<br>coord_type= bd09ll<br>允许的值为：<br>bd09ll（百度经纬度坐标）<br>bd09mc（百度墨卡托坐标）<br>gcj02（经国测局加密的坐标）<br>wgs84（gps获取的原始坐标）</td>
+<td>如开发者不传递正确的坐标类型参数，会导致地点坐标位置偏移。</td>
+</tr>
+<tr>
+<td>src</td>
+<td>表示来源，用于统计</td>
+<td>必选参数，格式为：ios.companyName.appName 不传此参数，不保证服务</td>
+</tr>
+</tbody></table>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 只填写必传参数，url地址整理后如下：</span><br><span class="line">baidumap://map/direction?origin=中关村&amp;destination=五道口&amp;mode=driving&amp;src=ios.baidu.openAPIdemo</span><br></pre></td></tr></table></figure>
 
+<h3 id="高德地图"><a href="#高德地图" class="headerlink" title="高德地图"></a>高德地图</h3><p>高德地图更多详细功能的可以点击<a target="_blank" rel="noopener" href="https://lbs.amap.com/api/amap-mobile/guide/ios/ios-uri-information">地址</a>查看</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>是否必填</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Path</td>
+<td>服务类型</td>
+<td>是</td>
+</tr>
+<tr>
+<td>sourceApplication</td>
+<td>第三方调用应用名称。如applicationName</td>
+<td>是</td>
+</tr>
+<tr>
+<td>slat</td>
+<td>起点纬度，经纬度参数同时存在或同时为空，视为有效参数</td>
+<td>否</td>
+</tr>
+<tr>
+<td>slon</td>
+<td>起点经度，经纬度参数同时存在或同时为空，视为有效参数</td>
+<td>否</td>
+</tr>
+<tr>
+<td>sname</td>
+<td>起点名称（可为空）</td>
+<td>否</td>
+</tr>
+<tr>
+<td>dlat</td>
+<td>终点纬度，经纬度参数同时存在或同时为空，视为有效参数</td>
+<td>否</td>
+</tr>
+<tr>
+<td>dlon</td>
+<td>终点经度，经纬度参数同时存在或同时为空，视为有效参数</td>
+<td>否</td>
+</tr>
+<tr>
+<td>dname</td>
+<td>终点名称（可为空）</td>
+<td>否</td>
+</tr>
+<tr>
+<td>t</td>
+<td>t = 0 驾车；t = 1 公交；t = 2 步行；t = 3 骑行（骑行仅在V788以上版本支持）；</td>
+<td>是</td>
+</tr>
+</tbody></table>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 只填写必传参数，url地址整理后如下：</span><br><span class="line">iosamap://path?sourceApplication=applicationName&amp;sname=中关村&amp;dname=五道口&amp;t=0</span><br></pre></td></tr></table></figure>
 
-
+<h3 id="腾讯地图"><a href="#腾讯地图" class="headerlink" title="腾讯地图"></a>腾讯地图</h3><p>腾讯地图更多详细功能的可以点击<a target="_blank" rel="noopener" href="https://lbs.qq.com/webApi/uriV1/uriGuide/uriMobileGuide">地址</a>查看</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>必填</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>是</td>
+<td>路线规划方式参数：<br>公交：bus<br>驾车：drive<br>步行：walk（仅适用移动端）</td>
+<td>type=bus<br>type=drive<br>type=walk</td>
+</tr>
+<tr>
+<td>from</td>
+<td>二选一</td>
+<td>起点名称</td>
+<td>from=奥林匹克森林公园</td>
+</tr>
+<tr>
+<td>fromcoord</td>
+<td>二选一</td>
+<td>起点坐标<br>移动端如果起点名称和起点坐标均未传递，则使用当前定位位置作为起点</td>
+<td>fromcoord=39.907380,116.388501</td>
+</tr>
+<tr>
+<td>to</td>
+<td>是</td>
+<td>终点名称</td>
+<td>to=奥林匹克森林公园</td>
+</tr>
+<tr>
+<td>tocoord</td>
+<td>否</td>
+<td>终点坐标</td>
+<td>tocoord=40.010024,116.392239</td>
+</tr>
+<tr>
+<td>referer</td>
+<td>是</td>
+<td>调用来源，一般为您的应用名称，为了保障对您的服务，请务必填写！</td>
+<td>referer=您的应用名</td>
+</tr>
+</tbody></table>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 只填写必传参数，url地址整理后如下：</span><br><span class="line">qqmap://map/routeplan?type=drive&amp;from=中关村&amp;to=五道口&amp;referer=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -275,7 +419,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://blog.24do.xyz/posts/41756/" title="iOS常用info.plist的权限设置">http://blog.24do.xyz/posts/41756/</a>
+    <a href="http://blog.24do.xyz/posts/28416/" title="iOS唤起百度、高德、腾讯地图进行导航路线规划">http://blog.24do.xyz/posts/28416/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -291,11 +435,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/posts/28416/" rel="next" title="iOS唤起百度、高德、腾讯地图进行导航路线规划">
-      iOS唤起百度、高德、腾讯地图进行导航路线规划 <i class="fa fa-chevron-right"></i>
+    <a href="/posts/41756/" rel="prev" title="iOS常用info.plist的权限设置">
+      <i class="fa fa-chevron-left"></i> iOS常用info.plist的权限设置
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -354,7 +498,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%99%E4%BA%9B%E6%98%AF%E6%95%B4%E7%90%86%E5%B8%B8%E7%94%A8%E7%9A%84%E9%83%A8%E5%88%86%E6%9D%83%E9%99%90-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%94%A8%E5%88%B0%E5%85%B6%E4%BB%96%E6%9D%83%E9%99%90%E5%86%8D%E7%BB%A7%E7%BB%AD%E8%BF%BD%E5%8A%A0"><span class="nav-number">1.1.</span> <span class="nav-text">这些是整理常用的部分权限(项目中用到其他权限再继续追加)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8HTTP%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82%EF%BC%8C%E9%9C%80%E8%A6%81%E5%9C%A8Info-plist%E6%96%B0%E5%A2%9E%E4%B8%80%E6%AE%B5%E7%94%A8%E4%BA%8E%E6%8E%A7%E5%88%B6ATS%E7%9A%84%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">app直接使用HTTP进行请求，需要在Info.plist新增一段用于控制ATS的配置：</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">协议格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.2.</span> <span class="nav-text">百度地图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.3.</span> <span class="nav-text">高德地图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%85%BE%E8%AE%AF%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.4.</span> <span class="nav-text">腾讯地图</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
