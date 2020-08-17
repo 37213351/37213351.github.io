@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>iOS常用info.plist的权限设置</title>
+    <url>/posts/41756/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>不论开发什么app，都需要设置权限，少到相机拍摄和使用照片库，多到麦克风、定位、通讯薄等等…</p>
+<p>如果不是要求很严格，可以直接把下面的权限复制粘贴到info.plist里</p>
+</blockquote>
+<h3 id="这些是整理常用的部分权限-项目中用到其他权限再继续追加"><a href="#这些是整理常用的部分权限-项目中用到其他权限再继续追加" class="headerlink" title="这些是整理常用的部分权限(项目中用到其他权限再继续追加)"></a>这些是整理常用的部分权限(项目中用到其他权限再继续追加)</h3><p>相机权限： Privacy - Camera Usage Description 是否允许此App使用你的相机？<br>相册权限： Privacy - Photo Library Usage Description 是否允许此App使用你的相册？<br>定位权限：Privacy - Location When In Use Usage Description 是否允许此App使用你的定位？<br>定位权限: Privacy - Location Always Usage Description 是否允许此App使用你的定位？<br>蓝牙权限：Privacy - Bluetooth Peripheral Usage Description 是否允许此App使用你的蓝牙？<br>麦克风权限：Privacy - Microphone Usage Description 是否允许此App使用你的麦克风？<br>通讯录权限： Privacy - Contacts Usage Description 是否允许此App使用你的通讯录？<br>日历权限：Privacy - Calendars Usage Description 是否允许此App使用你的日历？</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;key&gt;NSCameraUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的相机？&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSLocationWhenInUseUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的定位?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的麦克风?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的相册?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSContactsUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的通讯录?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSBluetoothPeripheralUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的蓝牙?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSCalendarsUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的日历?&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSLocationAlwaysUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;是否允许此App使用你的定位?&lt;/string&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="app直接使用HTTP进行请求，需要在Info-plist新增一段用于控制ATS的配置："><a href="#app直接使用HTTP进行请求，需要在Info-plist新增一段用于控制ATS的配置：" class="headerlink" title="app直接使用HTTP进行请求，需要在Info.plist新增一段用于控制ATS的配置："></a>app直接使用HTTP进行请求，需要在Info.plist新增一段用于控制ATS的配置：</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">        &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;</span><br><span class="line">        &lt;<span class="literal">true</span>/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+  </entry>
+</search>
